@@ -1,0 +1,23 @@
+void GPIOInit1 (void)
+{
+	//Включение альтернативных функций контроллера
+	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
+
+	//Включение порта С и А шины APB2
+	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
+	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
+
+	// Настройка PC9 и PC8 и PA0
+	//частота приема сигнала PC9, PC8 50MGz
+	GPIOC->CRH |= GPIO_CRH_MODE9_1  | GPIO_CRH_MODE8_1 | GPIO_CRH_MODE9_0 | GPIO_CRH_MODE8_0;
+	GPIOC->CRH |= GPIO_CRH_CNF9_1 | GPIO_CRH_CNF8_1;//Альтернав-й реж-м рабо-ы
+	GPIOC->CRH &= ~GPIO_CRH_CNF9_0 & ~GPIO_CRH_CNF8_0;
+	GPIOA->CRL &= ~GPIO_CRL_MODE0_0 & ~GPIO_CRL_MODE0_1 & ~GPIO_CRL_CNF0_0;
+	GPIOA->CRL |= GPIO_CRL_CNF0_1;
+
+	//GPIOC->ODR |= GPIO_ODR_ODR9;//установить 9-й бит в 1. Включение 9-й ножки
+	EXTI->RTSR |= EXTI_RTSR_TR0;// Прерывания по восзодящему фронту по ножке 0
+	EXTI->FTSR |= EXTI_RTSR_TR0;//Прерывания по убывающему фронту по ножке 0
+	EXTI->IMR |= EXTI_IMR_MR0; //Включение прерываний для линии 0
+	AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;//Откуда ловить прерывания (кнопка PA0)
+}

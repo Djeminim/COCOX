@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=SPI.v.2.map -O0 --gc-sections -LC:\stm32\COIDE\CoIDE\configuration\ProgramData\SPI.v.2 -TC:\stm32\COIDE\CoIDE\configuration\ProgramData\SPI.v.2/link.ld -g">
+      <target file="SPI.v.2.elf" lastModified="18b80828772">
+         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="18b808284c4"/>
+         <source file="..\obj\system_stm32f10x.o" lastModified="18b808284fa"/>
+         <source file="..\obj\main.o" lastModified="18b8082853e"/>
+         <source file="..\obj\stm32f10x_rcc.o" lastModified="18b80828586"/>
+      </target>
+   </processor>
+</history>

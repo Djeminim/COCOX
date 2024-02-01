@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY\stm_lib -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY\cmsis -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY -I..\..\..\..\..\..\stm32_progi -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY\stm_lib\inc -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY\cmsis_boot">
+      <target file="stm32f10x_rcc.o" lastModified="1899bc1db59">
+         <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="1897787adc6"/>
+      </target>
+      <target file="system_stm32f10x.o" lastModified="1899bc1da34">
+         <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="1897271688c"/>
+      </target>
+      <target file="stm32f10x_gpio.o" lastModified="1899bc1da79">
+         <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="1897787add7"/>
+      </target>
+   </processor>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\..\..\..\stm32_progi\PWM_PRI_NAJATII_KEY">
+      <target file="startup_stm32f10x_md_vl.o" lastModified="189d4b705e5">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="18972716886"/>
+      </target>
+   </processor>
+</history>

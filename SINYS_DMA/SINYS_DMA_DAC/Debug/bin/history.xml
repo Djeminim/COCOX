@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=SINYS_DMA_DAC.map -O0 --gc-sections -LC:\stm32\COIDE\CoIDE\configuration\ProgramData\SINYS_DMA_DAC -TC:\stm32\COIDE\CoIDE\configuration\ProgramData\SINYS_DMA_DAC/link.ld -g -L..\..\.. -lm">
+      <target file="SINYS_DMA_DAC.elf" lastModified="189e3842eeb">
+         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="189e3842b2a"/>
+         <source file="..\obj\system_stm32f10x.o" lastModified="189e3842bbd"/>
+         <source file="..\obj\Sinys_PA4_KEY.o" lastModified="189e3842c0e"/>
+         <source file="..\obj\main.o" lastModified="189e3842c89"/>
+         <source file="..\obj\PWM_PC9_A0_TIM3.o" lastModified="189e3842cbc"/>
+      </target>
+   </processor>
+</history>

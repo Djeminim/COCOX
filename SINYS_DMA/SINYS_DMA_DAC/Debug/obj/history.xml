@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -I..\..\..\..\..\.. -I..\..\..\..\..\..\stm32_progi -I..\..\..\..\..\..\stm32_progi\DAC1\arm-gnu-toolchain-12.2.mpacbti-rel1-mingw-w64-i686-arm-none-eabi\arm-none-eabi\include -I..\..\..\..\..\..\stm32_progi\DAC1\arm-gnu-toolchain-12.2.mpacbti-rel1-mingw-w64-i686-arm-none-eabi\arm-none-eabi\include\c++ -I..\..\..\..\..\..\stm32_progi\SINYS_DMA\cmsis_boot -I..\..\..\..\..\..\stm32_progi\SINYS_DMA\cmsis -I..\..\..\..\..\..\stm32_progi\DAC1\arm-gnu-toolchain-12.2.mpacbti-rel1-mingw-w64-i686-arm-none-eabi\arm-none-eabi\include\c++\12.2.1 -I..\..\..\..\..\..\stm32_progi\SINYS_DMA">
+      <target file="PWM_PC9_A0_TIM3.o" lastModified="189e3842cbc">
+         <source file="..\..\..\PWM_PC9_A0_TIM3.c" lastModified="189abe814b4"/>
+      </target>
+      <target file="system_stm32f10x.o" lastModified="189e3842bbd">
+         <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="18991f1d5eb"/>
+      </target>
+      <target file="Sinys_PA4_KEY.o" lastModified="189e3842c0e">
+         <source file="..\..\..\Sinys_PA4_KEY.c" lastModified="189ba56ce59"/>
+      </target>
+      <target file="startup_stm32f10x_md_vl.o" lastModified="189e3842b2a">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="18991f1d5d6"/>
+      </target>
+      <target file="main.o" lastModified="189e3842c89">
+         <source file="..\..\..\main.c" lastModified="189ba56ce56"/>
+      </target>
+   </processor>
+</history>
