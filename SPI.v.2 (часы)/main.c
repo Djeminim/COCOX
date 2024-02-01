@@ -6,7 +6,7 @@ unsigned int Time;
 unsigned int Taktov;
 unsigned int command;
 unsigned	int data;
-uint32_t count_tic = 0; // 32 áèòíàÿ/4 áàéòà
+uint32_t count_tic = 0; 
 unsigned int sekynd = 0; //64 áèòà /8 áàéò
 unsigned char Sek=0x30;
 unsigned char Sek2=0x30;
