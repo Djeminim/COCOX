@@ -6,8 +6,8 @@ unsigned int Time;
 unsigned int Taktov;
 unsigned int command;
 unsigned	int data;
-uint32_t count_tic = 0; // 32 битная/4 байта
-unsigned int sekynd = 0; //64 бита /8 байт
+uint32_t count_tic = 0; // 32 ГЎГЁГІГ­Г Гї/4 ГЎГ Г©ГІГ 
+unsigned int sekynd = 0; //64 ГЎГЁГІГ  /8 ГЎГ Г©ГІ
 unsigned char Sek=0x30;
 unsigned char Sek2=0x30;
 unsigned char Min=0x30;
@@ -16,16 +16,16 @@ unsigned char Hours=0x30;
 unsigned char Hours2=0x30;
 unsigned char Vigryzka;
 
-/*Cчетчик (реализация подсчета тактов)
+/*CС‡РµС‚С‡РёРє (РёР·РјРµСЂРёС‚СЊ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєР°РєРѕРіРѕ-Р»РёР±Рѕ СѓС‡Р°СЃС‚РєР° РїСЂРѕРіСЂР°РјРјС‹ РёР»Рё С„СѓРЅРєС†РёРё)
 void DWT_Init (void)
 {
-	 SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;// разрешаем использовать DWT
-	 DWT_CONTROL|= DWT_CTRL_CYCCNTENA_Msk; // включаем счeтчик
-	 DWT_CYCCNT = 0;// обнуляем счeтчик
+	 SCB_DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;// СЂР°Р·СЂРµС€Р°РµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ DWT
+	 DWT_CONTROL|= DWT_CTRL_CYCCNTENA_Msk; // РІРєР»СЋС‡Р°РµРј СЃС‡eС‚С‡РёРє
+	 DWT_CYCCNT = 0;// РѕР±РЅСѓР»СЏРµРј СЃС‡eС‚С‡РёРє
 
-	  // здесь кусок измеряемого участка программы
+	  // Р·РґРµСЃСЊ РєСѓСЃРѕРє РёР·РјРµСЂСЏРµРјРѕРіРѕ СѓС‡Р°СЃС‚РєР° РїСЂРѕРіСЂР°РјРјС‹
 
-	 count_tic = DWT_CYCCNT; // кол-во тактов
+	 count_tic = DWT_CYCCNT; // РєРѕР»-РІРѕ С‚Р°РєС‚РѕРІ
 }
 */
 
@@ -36,28 +36,28 @@ unsigned char Send (unsigned char bait)
 	unsigned short Spi2TimeOut = 0;
 	while ((!(SPI2->SR & SPI_SR_TXE)) && (Spi2TimeOut < 1000)) {Spi2TimeOut++;}
 	Spi2TimeOut = 0;
-	SPI2->DR = bait; //Загрузка в др
+	SPI2->DR = bait; //Р—Р°РіСЂСѓР·РєР° РІ РґСЂ
 	while ((!(SPI2->SR & SPI_SR_RXNE)) && (Spi2TimeOut < 1000)) {Spi2TimeOut++;}
-	return SPI2->DR; //Выгрузка из др (Обязательно нужно делать, для перезарядки)
+	return SPI2->DR; //Р’С‹РіСЂСѓР·РєР° РёР· РґСЂ (РћР±СЏР·Р°С‚РµР»СЊРЅРѕ РЅСѓР¶РЅРѕ РґРµР»Р°С‚СЊ, РґР»СЏ РїРµСЂРµР·Р°СЂСЏРґРєРё)
 }
 
 void Delay_mc (unsigned char Time)
 {
-	Taktov = Time * 2178; //2178 - (столько тактов в 1mc)
+	Taktov = Time * 2178; //2178 - (СЃС‚РѕР»СЊРєРѕ С‚Р°РєС‚РѕРІ РІ 1mc)
 	for (Taktov=0; Taktov<Time; Taktov++);
 }
 
 
 
-void Data (unsigned char D) //данные для контроллера
+void Data (unsigned char D) //РґР°РЅРЅС‹Рµ РґР»СЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
 {
 	GPIOB->ODR &= ~GPIO_ODR_ODR12;
 
-	for (int k=0; k<1;k++); //Порой нужно делать задержку
-						   //Чтобы контроллер диплея успел
-						   //обработать данные
+	for (int k=0; k<1;k++); //РџРѕСЂРѕР№ РЅСѓР¶РЅРѕ РґРµР»Р°С‚СЊ Р·Р°РґРµСЂР¶РєСѓ
+						   //Р§С‚РѕР±С‹ РєРѕРЅС‚СЂРѕР»Р»РµСЂ РґРёРїР»РµСЏ СѓСЃРїРµР»
+						   //РѕР±СЂР°Р±РѕС‚Р°С‚СЊ РґР°РЅРЅС‹Рµ
 
-	Send (0x5F); //код который определяет data это или comand
+	Send (0x5F); //РєРѕРґ РєРѕС‚РѕСЂС‹Р№ РѕРїСЂРµРґРµР»СЏРµС‚ data СЌС‚Рѕ РёР»Рё comand
 	Send ((D)&0x0F);
 	Send (((D&0xF0)>>4)&0x0F);
 
@@ -66,7 +66,7 @@ void Data (unsigned char D) //данные для контроллера
 	for (int k=0; k<1;k++);
 }
 
-void Command (unsigned char C) //Команда для контроллера
+void Command (unsigned char C) //РљРѕРјР°РЅРґР° РґР»СЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
 {
 	GPIOB->ODR &= ~GPIO_ODR_ODR12;
 	for (int k=0; k<1;k++);
@@ -85,83 +85,83 @@ void Command (unsigned char C) //Команда для контроллера
 void TIME (void )
 {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
-	TIM6->PSC = 24000 - 1; //24 000 000/24 000 = 1 000 Гц
-	TIM6->ARR = 1000 - 1; // 1 000/1000 = 1 сек
-	TIM6->DIER |= TIM_DIER_UIE; //разрешение прерываний таймера 6
+	TIM6->PSC = 24000 - 1; //24 000 000/24 000 = 1 000 Р“С†
+	TIM6->ARR = 1000 - 1; // 1 000/1000 = 1 СЃРµРє
+	TIM6->DIER |= TIM_DIER_UIE; //СЂР°Р·СЂРµС€РµРЅРёРµ РїСЂРµСЂС‹РІР°РЅРёР№ С‚Р°Р№РјРµСЂР° 6
 	TIM6->CR1 |= TIM_CR1_ARPE;
-	NVIC_EnableIRQ(TIM6_DAC_IRQn); //включаем функцию прерыванию по переполнению ARR
-	TIM6->CR1 |= TIM_CR1_CEN;  // Запускаем таймер
+	NVIC_EnableIRQ(TIM6_DAC_IRQn); //РІРєР»СЋС‡Р°РµРј С„СѓРЅРєС†РёСЋ РїСЂРµСЂС‹РІР°РЅРёСЋ РїРѕ РїРµСЂРµРїРѕР»РЅРµРЅРёСЋ ARR
+	TIM6->CR1 |= TIM_CR1_CEN;  // Р—Р°РїСѓСЃРєР°РµРј С‚Р°Р№РјРµСЂ
 }
 
 void SPI2_Init (void)
 {
-	//Включение тактирование SPI2, порта А,B
-	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN; //включение альтернативных функций
+	//Р’РєР»СЋС‡РµРЅРёРµ С‚Р°РєС‚РёСЂРѕРІР°РЅРёРµ SPI2, РїРѕСЂС‚Р° Рђ,B
+	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN; //РІРєР»СЋС‡РµРЅРёРµ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹С… С„СѓРЅРєС†РёР№
 	RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;
 	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPCEN;
 
-	GPIOA->CRH &= 0xFFFFFFF0; //обнуляем PA8 /RESET
+	GPIOA->CRH &= 0xFFFFFFF0; //РѕР±РЅСѓР»СЏРµРј PA8 /RESET
 	GPIOA->CRH |= 0x00000003; //PA8 50MHz General output push-pull;
 
-	GPIOC->CRL &= 0xF0FFFFFF; //обнуляем PA8 /RESET
+	GPIOC->CRL &= 0xF0FFFFFF; //РѕР±РЅСѓР»СЏРµРј PA8 /RESET
 	GPIOC->CRL |= 0x03000000; //PC6 50MHz General output push-pull;
 
 
-	 // Конфигурируем выводы SPI2 (смотреть в как настроены пины в Prod-t Speci-n 7.1 SPI). ->
-	 // PB12, SPI2_NSS: Если мы управляем тогда General purpose output push-pull
+	 // РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј РІС‹РІРѕРґС‹ SPI2 (СЃРјРѕС‚СЂРµС‚СЊ РІ РєР°Рє РЅР°СЃС‚СЂРѕРµРЅС‹ РїРёРЅС‹ РІ Prod-t Speci-n 7.1 SPI). ->
+	 // PB12, SPI2_NSS: Р•СЃР»Рё РјС‹ СѓРїСЂР°РІР»СЏРµРј С‚РѕРіРґР° General purpose output push-pull
 	 // PB13, SPI2_SCK:(Master) Alternate function push-pull
 	 // PB14, SPI2_MISO: input, pull up/down
 	 // PB15, SPI2_MOSI: (Mast	er) Alternate function push-pull
 	 // PA8 , RESET
-	GPIOB->CRH &= 0x0000FFFF;  //где 0 там очищается
+	GPIOB->CRH &= 0x0000FFFF;  //РіРґРµ 0 С‚Р°Рј РѕС‡РёС‰Р°РµС‚СЃСЏ
 	GPIOB->CRH |= 0xB4B30000;
 
-	GPIOB->ODR |= GPIO_ODR_ODR12; //Обзательно поднять в 1 линию CS (для мале-го дисп-я)
+	GPIOB->ODR |= GPIO_ODR_ODR12; //РћР±Р·Р°С‚РµР»СЊРЅРѕ РїРѕРґРЅСЏС‚СЊ РІ 1 Р»РёРЅРёСЋ CS (РґР»СЏ РјР°Р»Рµ-РіРѕ РґРёСЃРї-СЏ)
 
 
-	//Альтернативная настройка SPI
-	SPI2->CR1 &= ~SPI_CR1_DFF;  //ПЕРЕДАЧА 8 БИТ
+	//РђР»СЊС‚РµСЂРЅР°С‚РёРІРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР° SPI
+	SPI2->CR1 &= ~SPI_CR1_DFF;  //РџР•Р Р•Р”РђР§Рђ 8 Р‘РРў
 
 	SPI2->CR1 |= SPI_CR1_LSBFIRST;//MSB first
 
-	SPI2->CR1 |= SPI_CR1_SSM;  //Программное управление ведомым устрой-м SS
+	SPI2->CR1 |= SPI_CR1_SSM;  //РџСЂРѕРіСЂР°РјРјРЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ РІРµРґРѕРјС‹Рј СѓСЃС‚СЂРѕР№-Рј SS
 
-	SPI2->CR1 |= SPI_CR1_SSI;  //SS в высоком состоянии
+	SPI2->CR1 |= SPI_CR1_SSI;  //SS РІ РІС‹СЃРѕРєРѕРј СЃРѕСЃС‚РѕСЏРЅРёРё
 
-	SPI2->CR1 &= ~SPI_CR1_BR;  //Скорость передачи: F_PCLK/2
+	SPI2->CR1 &= ~SPI_CR1_BR;  //РЎРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґР°С‡Рё: F_PCLK/2
 
-	SPI2->CR1 |= SPI_CR1_MSTR;  //Режим Master (ведущий)
+	SPI2->CR1 |= SPI_CR1_MSTR;  //Р РµР¶РёРј Master (РІРµРґСѓС‰РёР№)
 
-	SPI2->CR1 &= ~SPI_CR1_CPOL & ~SPI_CR1_CPHA;  //Режим работы SPI: 0
+	SPI2->CR1 &= ~SPI_CR1_CPOL & ~SPI_CR1_CPHA;  //Р РµР¶РёРј СЂР°Р±РѕС‚С‹ SPI: 0
 
-	SPI2->CR2 |= SPI_CR2_TXDMAEN; //Обращение к DMA если упешно передали данные по SPI и буфер TX готов к передачи
+	SPI2->CR2 |= SPI_CR2_TXDMAEN; //РћР±СЂР°С‰РµРЅРёРµ Рє DMA РµСЃР»Рё СѓРїРµС€РЅРѕ РїРµСЂРµРґР°Р»Рё РґР°РЅРЅС‹Рµ РїРѕ SPI Рё Р±СѓС„РµСЂ TX РіРѕС‚РѕРІ Рє РїРµСЂРµРґР°С‡Рё
 
-	SPI2->CR2 |= SPI_CR2_RXDMAEN; //Обращение к DMA если упешно приняли данные по SPI и буфер TX готов к приему
+	SPI2->CR2 |= SPI_CR2_RXDMAEN; //РћР±СЂР°С‰РµРЅРёРµ Рє DMA РµСЃР»Рё СѓРїРµС€РЅРѕ РїСЂРёРЅСЏР»Рё РґР°РЅРЅС‹Рµ РїРѕ SPI Рё Р±СѓС„РµСЂ TX РіРѕС‚РѕРІ Рє РїСЂРёРµРјСѓ
 
-	SPI2->CR1 |= SPI_CR1_SPE;  //Включаем SPI
+	SPI2->CR1 |= SPI_CR1_SPE;  //Р’РєР»СЋС‡Р°РµРј SPI
 }
 
 void DMA_Init (void)
 {
-	//Настраиваем 3-й канал DMA
+	//РќР°СЃС‚СЂР°РёРІР°РµРј 3-Р№ РєР°РЅР°Р» DMA
 	RCC->AHBENR |= RCC_AHBENR_DMA1EN;
-	//DMA1_Channel3->CCR |= DMA_CCR3_MSIZE_0 ; //не настраиваем по умолчанию передача 8 бит
-	//DMA1_Channel3->CCR |= DMA_CCR3_PSIZE_0 ; //не настраиваем по умолчанию передача 8 бит
-	//DMA1_Channel5->CCR |= DMA_CCR5_CIRC; //включ циклического режима
-	DMA1_Channel5->CCR |= DMA_CCR5_DIR;//Чтение с памяти
-	DMA1_Channel5->CCR |= DMA_CCR5_TCIE;//Прерывание при завершении цикла
-	DMA1_Channel5->CCR |= DMA_CCR5_MINC;//Включить Инкремент адреса памяти на величену установленную вCRR_MSIZE
+	//DMA1_Channel3->CCR |= DMA_CCR3_MSIZE_0 ; //РЅРµ РЅР°СЃС‚СЂР°РёРІР°РµРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїРµСЂРµРґР°С‡Р° 8 Р±РёС‚
+	//DMA1_Channel3->CCR |= DMA_CCR3_PSIZE_0 ; //РЅРµ РЅР°СЃС‚СЂР°РёРІР°РµРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїРµСЂРµРґР°С‡Р° 8 Р±РёС‚
+	//DMA1_Channel5->CCR |= DMA_CCR5_CIRC; //РІРєР»СЋС‡ С†РёРєР»РёС‡РµСЃРєРѕРіРѕ СЂРµР¶РёРјР°
+	DMA1_Channel5->CCR |= DMA_CCR5_DIR;//Р§С‚РµРЅРёРµ СЃ РїР°РјСЏС‚Рё
+	DMA1_Channel5->CCR |= DMA_CCR5_TCIE;//РџСЂРµСЂС‹РІР°РЅРёРµ РїСЂРё Р·Р°РІРµСЂС€РµРЅРёРё С†РёРєР»Р°
+	DMA1_Channel5->CCR |= DMA_CCR5_MINC;//Р’РєР»СЋС‡РёС‚СЊ РРЅРєСЂРµРјРµРЅС‚ Р°РґСЂРµСЃР° РїР°РјСЏС‚Рё РЅР° РІРµР»РёС‡РµРЅСѓ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅСѓСЋ РІCRR_MSIZE
 
-	DMA1_Channel5->CMAR |= (uint32_t) &Ekran[0]; /* Адрес памяти. uint32_t обязательно
-	писать, т.к. все адреса в stm32 32-х битные и если не написать, он не распознает адрес.*/
+	DMA1_Channel5->CMAR |= (uint32_t) &Ekran[0]; /* РђРґСЂРµСЃ РїР°РјСЏС‚Рё. uint32_t РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ
+	РїРёСЃР°С‚СЊ, С‚.Рє. РІСЃРµ Р°РґСЂРµСЃР° РІ stm32 32-С… Р±РёС‚РЅС‹Рµ Рё РµСЃР»Рё РЅРµ РЅР°РїРёСЃР°С‚СЊ, РѕРЅ РЅРµ СЂР°СЃРїРѕР·РЅР°РµС‚ Р°РґСЂРµСЃ.*/
 
-	DMA1_Channel5->CPAR |= (uint32_t) &SPI2->DR; //Адрес переферии
+	DMA1_Channel5->CPAR |= (uint32_t) &SPI2->DR; //РђРґСЂРµСЃ РїРµСЂРµС„РµСЂРёРё
 	NVIC_EnableIRQ(DMA1_Channel5_IRQn);
 
 //---------------------------------------------------------------------------
 
 	DMA1_Channel4->CCR |= DMA_CCR4_CIRC;
-	DMA1_Channel4->CCR &= ~DMA_CCR4_DIR; //чтение с переферии
+	DMA1_Channel4->CCR &= ~DMA_CCR4_DIR; //С‡С‚РµРЅРёРµ СЃ РїРµСЂРµС„РµСЂРёРё
 	DMA1_Channel4->CCR |= DMA_CCR4_TCIE;
 
 	DMA1_Channel4->CPAR |= (uint32_t) &SPI2->DR;
@@ -178,38 +178,38 @@ void TIM6_DAC_IRQHandler(void)
 	Command(0x80);
 
 	Ekran[0]=(0x5F);
-	Ekran[1]=(((((((sekynd/3600)%24)/10))+0x30))&0x0F);//часы больше 10
+	Ekran[1]=(((((((sekynd/3600)%24)/10))+0x30))&0x0F);//С‡Р°СЃС‹ Р±РѕР»СЊС€Рµ 10
 	Ekran[2]=((((((((sekynd/3600)%24)/10))+0x30))>>4)&0x0F);
 
-	Ekran[3]=(((((((sekynd/3600)%24)%10))+0x30))&0x0F);//часы меньше 10
+	Ekran[3]=(((((((sekynd/3600)%24)%10))+0x30))&0x0F);//С‡Р°СЃС‹ РјРµРЅСЊС€Рµ 10
 	Ekran[4]=((((((((sekynd/3600)%24)%10))+0x30))>>4)&0x0F);
 
 	Ekran[5]= (':'&0x0F);
 	Ekran[6]= ((':'>>4)&0x0F);
 
-	Ekran[7]=(((((((sekynd/60)%60)/10))+0x30))&0x0F);//минуты больше 10
-	Ekran[8]=((((((((sekynd/60)%60)/10))+0x30))>>4)&0x0F);//минуты больше 10
+	Ekran[7]=(((((((sekynd/60)%60)/10))+0x30))&0x0F);//РјРёРЅСѓС‚С‹ Р±РѕР»СЊС€Рµ 10
+	Ekran[8]=((((((((sekynd/60)%60)/10))+0x30))>>4)&0x0F);//РјРёРЅСѓС‚С‹ Р±РѕР»СЊС€Рµ 10
 
-	Ekran[9]=(((((((sekynd/60)%60)%10))+0x30))&0x0F);//минуты меньше 10
-	Ekran[10]=((((((((sekynd/60)%60)%10))+0x30))>>4)&0x0F);//минуты меньше 10
+	Ekran[9]=(((((((sekynd/60)%60)%10))+0x30))&0x0F);//РјРёРЅСѓС‚С‹ РјРµРЅСЊС€Рµ 10
+	Ekran[10]=((((((((sekynd/60)%60)%10))+0x30))>>4)&0x0F);//РјРёРЅСѓС‚С‹ РјРµРЅСЊС€Рµ 10
 
 	Ekran[11]= (':'&0x0F);
 	Ekran[12]= ((':'>>4)&0x0F);
 
-	Ekran[13]=((((((sekynd%60)/10))+0x30))&0x0F); //секунды больше 10
-	Ekran[14]=(((((((sekynd%60)/10))+0x30))>>4)&0x0F); //секунды больше 10
+	Ekran[13]=((((((sekynd%60)/10))+0x30))&0x0F); //СЃРµРєСѓРЅРґС‹ Р±РѕР»СЊС€Рµ 10
+	Ekran[14]=(((((((sekynd%60)/10))+0x30))>>4)&0x0F); //СЃРµРєСѓРЅРґС‹ Р±РѕР»СЊС€Рµ 10
 
-	Ekran[15]=((((((sekynd%60)%10))+0x30))&0x0F); //секунды меньше 10
-	Ekran[16]=(((((((sekynd%60)%10))+0x30))>>4)&0x0F); //секунды меньше 10
+	Ekran[15]=((((((sekynd%60)%10))+0x30))&0x0F); //СЃРµРєСѓРЅРґС‹ РјРµРЅСЊС€Рµ 10
+	Ekran[16]=(((((((sekynd%60)%10))+0x30))>>4)&0x0F); //СЃРµРєСѓРЅРґС‹ РјРµРЅСЊС€Рµ 10
 
-	GPIOB->ODR &= ~GPIO_ODR_ODR12; //включение CR у SPI
+	GPIOB->ODR &= ~GPIO_ODR_ODR12; //РІРєР»СЋС‡РµРЅРёРµ CR Сѓ SPI
 
-	DMA1_Channel4->CNDTR |= 17;//кол-во отправок DMA (Лучше ставить перед DMA_EN)
-	DMA1_Channel5->CNDTR |= 17;//кол-во отправок DMA (Лучше ставить перед DMA_EN)
+	DMA1_Channel4->CNDTR |= 17;//РєРѕР»-РІРѕ РѕС‚РїСЂР°РІРѕРє DMA (Р›СѓС‡С€Рµ СЃС‚Р°РІРёС‚СЊ РїРµСЂРµРґ DMA_EN)
+	DMA1_Channel5->CNDTR |= 17;//РєРѕР»-РІРѕ РѕС‚РїСЂР°РІРѕРє DMA (Р›СѓС‡С€Рµ СЃС‚Р°РІРёС‚СЊ РїРµСЂРµРґ DMA_EN)
 	DMA1_Channel4->CCR |= DMA_CCR4_EN;
 	DMA1_Channel5->CCR |= DMA_CCR5_EN;
 
-	TIM6->SR &= ~TIM_SR_UIF;//Перезарядка таймера
+	TIM6->SR &= ~TIM_SR_UIF;//РџРµСЂРµР·Р°СЂСЏРґРєР° С‚Р°Р№РјРµСЂР°
 
 }
 
@@ -220,8 +220,8 @@ void DMA1_Channel5_IRQHandler (void)
 	while (!(SPI2->SR & SPI_SR_TXE));
 	while (SPI2->SR & SPI_SR_BSY);
 
-	GPIOB->ODR |= GPIO_ODR_ODR12; //выключение CR у SPI по завершению передачи DMA
-	DMA1->IFCR |=DMA_IFCR_CGIF5; //Перезарядка для прерываний DMA(отчистка модуля прерываний TEIE)
+	GPIOB->ODR |= GPIO_ODR_ODR12; //РІС‹РєР»СЋС‡РµРЅРёРµ CR Сѓ SPI РїРѕ Р·Р°РІРµСЂС€РµРЅРёСЋ РїРµСЂРµРґР°С‡Рё DMA
+	DMA1->IFCR |=DMA_IFCR_CGIF5; //РџРµСЂРµР·Р°СЂСЏРґРєР° РґР»СЏ РїСЂРµСЂС‹РІР°РЅРёР№ DMA(РѕС‚С‡РёСЃС‚РєР° РјРѕРґСѓР»СЏ РїСЂРµСЂС‹РІР°РЅРёР№ TEIE)
 }
 
 void DMA1_Channel4_IRQHandler (void)
@@ -235,9 +235,9 @@ int main(void)
 {
 	SPI2_Init();
 
-	Delay_mc(1); //1 mc 23993(тактов) (2178 тактов за 1);
+	Delay_mc(1); //1 mc 23993(С‚Р°РєС‚РѕРІ) (2178 С‚Р°РєС‚РѕРІ Р·Р° 1);
 
-	GPIOC->ODR |= GPIO_ODR_ODR6; //PA8=1 (для работы маленького дисплея)
+	GPIOC->ODR |= GPIO_ODR_ODR6; //PA8=1 (РґР»СЏ СЂР°Р±РѕС‚С‹ РјР°Р»РµРЅСЊРєРѕРіРѕ РґРёСЃРїР»РµСЏ)
 
 	Delay_mc(1);
 	Command (0x2A);
@@ -271,7 +271,7 @@ int main(void)
 	Command (0x01);
 	Command (0x80);
 	Command (0x0C);
-	Delay_mc(100); //100mc (2 400 000 тактов)
+	Delay_mc(100); //100mc (2 400 000 С‚Р°РєС‚РѕРІ)
 
 	DMA_Init();
 	TIME();
